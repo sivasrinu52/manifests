@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nginx-deployment
+  namespace: default
+spec:
+  interval: 1m
+  chart:
+    spec:
+      chart: nginx                # Name of the chart
+      version: "15.1.0"           # Specific version of the chart
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-repo
+        namespace: flux-system
+  values:
+    replicaCount: 1            # Example: Set the number of replicas
+    service:
+      type: LoadBalancer         # Example: Use LoadBalancer for external access
+    metrics:
+      enabled: true              # Example: Enable Prometheus metrics
